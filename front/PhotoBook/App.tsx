@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -17,29 +17,27 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import HomeScreen from './src/HomeScreen';
+import SplashScreen from './src/SplashScreen';
 
 const App = () => {
+  const [isloading, setIsLoading] = useState(true);
   const isDarkMode = useColorScheme() === 'dark';
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <SafeAreaView>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={styles.mainContainer}>
-        <Text style={styles.textContainer}>PhotoBook</Text>
-      </View>
+      {isloading ? <SplashScreen /> : <HomeScreen />}
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-  },
-  textContainer: {
-    fontSize: 50,
-    fontWeight: 'bold',
-  },
-});
+const styles = StyleSheet.create({});
 
 export default App;
