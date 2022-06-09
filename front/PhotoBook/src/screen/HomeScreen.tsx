@@ -1,14 +1,15 @@
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect, useLayoutEffect, useRef} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Icon} from '@rneui/base';
+import React, {useLayoutEffect} from 'react';
+import {StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {RootStackParamList} from '../navigation';
 import {useAppSelector} from '../redux/hooks';
 import {selectAuthentication} from '../redux/slices/authentication.slice';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import WallScreen from './WallScreen';
-import SettingsScreen from './SettingsScreen';
 import LegalScreen from './LegalScreen';
+import SettingsScreen from './SettingsScreen';
+import WallScreen from './WallScreen';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 const Tab = createMaterialBottomTabNavigator();
@@ -23,10 +24,35 @@ const HomeScreen = ({navigation}: HomeProps) => {
   }, [authentication]);
 
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Wall" component={WallScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-      <Tab.Screen name="Legal" component={LegalScreen} />
+    <Tab.Navigator screenOptions={{headerShown: false}}>
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Wall',
+          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
+        }}
+        name="Wall"
+        component={WallScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Legal',
+          tabBarIcon: ({color}) => (
+            <Icon name="policy" color={color} size={26} />
+          ),
+        }}
+        name="Legal"
+        component={LegalScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarLabel: 'Settings',
+          tabBarIcon: ({color}) => (
+            <Icon name="settings" color={color} size={26} />
+          ),
+        }}
+        name="Settings"
+        component={SettingsScreen}
+      />
     </Tab.Navigator>
   );
 };

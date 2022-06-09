@@ -1,10 +1,23 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
+
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import api from '../api';
+import {useAppDispatch} from '../redux/hooks';
+import {disconnect} from '../redux/slices/authentication.slice';
 
 const SettingsScreen = () => {
+  const dispatch = useAppDispatch();
+  const onPressDisconnect = () => {
+    console.log('Disconnect');
+    dispatch(disconnect(undefined));
+    api.disconnect();
+  };
+
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.textContainer}>PhotoBook</Text>
+      <Text style={styles.textContainer}>SettingsScreen</Text>
+      <Button title="Disconnect" onPress={onPressDisconnect} />
     </View>
   );
 };
@@ -13,6 +26,7 @@ export default SettingsScreen;
 
 const styles = StyleSheet.create({
   mainContainer: {
+    backgroundColor: Colors.dark,
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
