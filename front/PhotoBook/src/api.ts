@@ -20,14 +20,19 @@ class Api {
     return await response.json();
   }
 
-  disconnect() {
-    fetch('http//10..0.2.2:3000/api/disconnect', {
+  async disconnect() {
+    const response = await fetch('http://10.0.2.2:3000/api/disconnect', {
       method: 'POST',
     });
+    const status = response.status;
+    console.log('disconnect status: ', status);
   }
 
   async isConnected(): Promise<User | undefined> {
-    const response = await fetch('http://10..0.2.2:3000/api/is-connected');
+    console.log('api is');
+    const response = await fetch('http://10.0.2.2:3000/api/is-connected', {
+      method: 'GET',
+    });
     const status = response.status;
     console.log('check status', status);
     if (status !== 200) {

@@ -10,8 +10,14 @@ const SettingsScreen = () => {
   const dispatch = useAppDispatch();
   const onPressDisconnect = () => {
     console.log('Disconnect');
-    dispatch(disconnect(undefined));
-    api.disconnect();
+    (async () => {
+      try {
+        dispatch(disconnect(undefined));
+        await api.disconnect();
+      } catch (err) {
+        console.log('err: ', err);
+      }
+    })();
   };
 
   return (

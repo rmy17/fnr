@@ -11,21 +11,22 @@ app.post("/connect", (req, res) => {
     res.status(401).end();
     return;
   }
-  req.session.user = loginForm.login;
+  req.session.user = {
+    displayName: loginForm.login,
+  };
   res.json({
     displayName: loginForm.login,
   });
 });
 
-app.post("/diconnect", (req, res) => {
+app.post("/disconnect", (req, res) => {
   req.session.user = undefined;
   res.status(204).end();
 });
 
-app.get("/is-connected", (res, req) => {
-  if (!req.session.user === undefined) {
+app.get("/is-connected", (req, res) => {
+  if (req.session.user === undefined) {
     res.status(401).end();
-
     return;
   }
   res.json(req.session.user);

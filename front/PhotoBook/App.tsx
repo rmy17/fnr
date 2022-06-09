@@ -41,11 +41,13 @@ const ReduxApp = () => {
   useEffect(() => {
     (async () => {
       try {
+        console.log('isconnected');
         const user = await api.isConnected();
         if (user) {
           dispatch(connect(user));
         }
       } catch (err) {
+        console.log('err: ', err);
       } finally {
         setIsLoading(false);
       }
