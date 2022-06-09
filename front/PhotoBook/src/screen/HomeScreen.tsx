@@ -5,8 +5,13 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {RootStackParamList} from '../navigation';
 import {useAppSelector} from '../redux/hooks';
 import {selectAuthentication} from '../redux/slices/authentication.slice';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import WallScreen from './WallScreen';
+import SettingsScreen from './SettingsScreen';
+import LegalScreen from './LegalScreen';
 
 type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+const Tab = createMaterialBottomTabNavigator();
 
 const HomeScreen = ({navigation}: HomeProps) => {
   const authentication = useAppSelector(selectAuthentication);
@@ -18,11 +23,11 @@ const HomeScreen = ({navigation}: HomeProps) => {
   }, [authentication]);
 
   return (
-    <View style={styles.mainContainer}>
-      <Text style={styles.textContainer}>
-        Hello {authentication.user?.displayName}
-      </Text>
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Wall" component={WallScreen} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Legal" component={LegalScreen} />
+    </Tab.Navigator>
   );
 };
 
