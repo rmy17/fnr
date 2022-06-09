@@ -8,7 +8,7 @@ export interface LoginForm {
 
 class Api {
   async connect(loginForm: LoginForm): Promise<User> {
-    //await sleep(2000);
+    await sleep(2000);
     const response = await fetch('http://10.0.2.2:3000/api/connect', {
       method: 'POST',
       body: JSON.stringify(loginForm),
