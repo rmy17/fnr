@@ -34,8 +34,6 @@ const ReduxApp = () => {
   const [isloading, setIsLoading] = useState(true);
   const isDarkMode = useColorScheme() === 'dark';
 
-  const isConnected = false;
-
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -51,8 +49,7 @@ const ReduxApp = () => {
         ) : (
           <NavigationContainer>
             {
-              <Stack.Navigator
-                initialRouteName={isConnected ? 'Home' : 'Login'}>
+              <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
                 <Stack.Screen
                   name="Login"
