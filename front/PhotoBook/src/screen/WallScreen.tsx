@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import NewArticle from '../articles/NewArticle';
 import {backendUrl} from '../env';
 
 const WallScreen = () => {
@@ -10,6 +11,7 @@ const WallScreen = () => {
         style={styles.image}
         source={{uri: backendUrl + '/images/wall.jpeg'}}
       />
+      <NewArticle />
       <Text style={styles.textContainer}>WallScreen</Text>
     </View>
   );

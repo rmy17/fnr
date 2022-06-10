@@ -1,13 +1,33 @@
 import {backendUrl} from './env';
+import {authFetch} from './fetch';
+import {Article} from './redux/slices/articles.slice';
 import {User} from './redux/slices/authentication.slice';
-import {sleep} from './utils';
 
 export interface LoginForm {
   login: string;
   password: string;
 }
 
+const apiUrl = backendUrl + '/api';
+
 class Api {
+  async addNewArticle(article: Article) {
+    const url = apiUrl + '/articles';
+    console.log('url: ', url);
+
+    const response = await authFetch(url, {
+      method: 'POST',
+      body: JSON.stringify(article),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status !== 201) {
+      throw new Error('cannot add article');
+    }
+    return await response.json();
+  }
+
   async connect(loginForm: LoginForm): Promise<User> {
     const response = await fetch(backendUrl + '/api/connect', {
       method: 'POST',
@@ -22,7 +42,7 @@ class Api {
   }
 
   async disconnect() {
-    const response = await fetch(backendUrl + '/api/disconnect', {
+    const response = await authFetch(backendUrl + '/api/disconnect', {
       method: 'POST',
     });
     const status = response.status;
@@ -31,7 +51,7 @@ class Api {
 
   async isConnected(): Promise<User | undefined> {
     console.log('api is');
-    const response = await fetch(backendUrl + '/api/is-connected', {
+    const response = await authFetch(backendUrl + '/api/is-connected', {
       method: 'GET',
     });
     const status = response.status;
@@ -41,6 +61,11 @@ class Api {
     }
     const user = await response.json();
     return user;
+  }
+
+  async getArticles(): Promise<Article[]> {
+    const response = await authFetch(apiUrl + '/articles');
+    return await response.json();
   }
 }
 

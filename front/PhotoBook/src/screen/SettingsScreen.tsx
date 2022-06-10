@@ -8,6 +8,7 @@ import {disconnect} from '../redux/slices/authentication.slice';
 
 const SettingsScreen = () => {
   const dispatch = useAppDispatch();
+
   const onPressDisconnect = () => {
     console.log('Disconnect');
     (async () => {
