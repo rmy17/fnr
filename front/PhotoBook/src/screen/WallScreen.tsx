@@ -1,11 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {Icon} from '@rneui/themed';
+import {backendUrl} from '../env';
 
 const WallScreen = () => {
   return (
     <View style={styles.mainContainer}>
+      <Image
+        style={styles.image}
+        source={{uri: backendUrl + '/images/wall.jpeg'}}
+      />
       <Text style={styles.textContainer}>WallScreen</Text>
     </View>
   );
@@ -23,5 +27,9 @@ const styles = StyleSheet.create({
   textContainer: {
     fontSize: 50,
     fontWeight: 'bold',
+  },
+  image: {
+    height: 300,
+    width: '100%',
   },
 });
