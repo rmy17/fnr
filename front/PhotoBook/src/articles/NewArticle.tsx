@@ -1,22 +1,29 @@
 import React, {useState} from 'react';
 import {TextInput, StyleSheet, Text, View, Button} from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useAppDispatch} from '../redux/hooks';
 import {addNewArticle} from '../redux/slices/articles.slice';
 
+const intitialText = '';
+
 const NewArticle = () => {
   const dispatch = useAppDispatch();
   const [images] = useState([]);
-  const [text, setText] = useState("Hey what's up ?");
+  const [text, setText] = useState(intitialText);
+  const [isloading, setIsLoading] = useState(false);
 
   const onSubmit = () => {
-    console.log('About to add article');
     (async () => {
       try {
+        setIsLoading(true);
+        console.log('About to add article');
         await dispatch(addNewArticle({content: text, images: images})).unwrap();
       } catch (err) {
         console.log('err', err);
       } finally {
+        setIsLoading(false);
+        setText(intitialText);
       }
     })();
   };
@@ -29,8 +36,13 @@ const NewArticle = () => {
         onChangeText={setText}
         value={text}
         style={styles.textInput}
+        placeholder="Hey what`s up ?"
       />
-      <Button title="Ajouter un article" onPress={onSubmit} />
+      {isloading ? (
+        <ActivityIndicator />
+      ) : (
+        <Button title="Ajouter un article" onPress={onSubmit} />
+      )}
     </View>
   );
 };
