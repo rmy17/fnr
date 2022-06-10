@@ -1,3 +1,4 @@
+import {backendUrl} from './env';
 import {User} from './redux/slices/authentication.slice';
 import {sleep} from './utils';
 
@@ -8,7 +9,7 @@ export interface LoginForm {
 
 class Api {
   async connect(loginForm: LoginForm): Promise<User> {
-    const response = await fetch('http://10.0.2.2:3000/api/connect', {
+    const response = await fetch(backendUrl + '/api/connect', {
       method: 'POST',
       body: JSON.stringify(loginForm),
       headers: {'Content-Type': 'application/json'},
@@ -21,7 +22,7 @@ class Api {
   }
 
   async disconnect() {
-    const response = await fetch('http://10.0.2.2:3000/api/disconnect', {
+    const response = await fetch(backendUrl + '/api/disconnect', {
       method: 'POST',
     });
     const status = response.status;
@@ -30,7 +31,7 @@ class Api {
 
   async isConnected(): Promise<User | undefined> {
     console.log('api is');
-    const response = await fetch('http://10.0.2.2:3000/api/is-connected', {
+    const response = await fetch(backendUrl + '/api/is-connected', {
       method: 'GET',
     });
     const status = response.status;
