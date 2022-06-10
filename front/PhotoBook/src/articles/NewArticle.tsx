@@ -1,5 +1,13 @@
+import {Icon} from '@rneui/themed';
 import React, {useState} from 'react';
-import {TextInput, StyleSheet, Text, View, Button} from 'react-native';
+import {
+  TextInput,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useAppDispatch} from '../redux/hooks';
@@ -31,6 +39,10 @@ const NewArticle = () => {
     })();
   };
 
+  const addPhoto = () => {
+    console.log('addPhoto', addPhoto);
+  };
+
   return (
     <View style={styles.mainContainer}>
       <TextInput
@@ -41,11 +53,22 @@ const NewArticle = () => {
         style={styles.textInput}
         placeholder="Hey what`s up ?"
       />
-      {isloading ? (
-        <ActivityIndicator />
-      ) : (
-        <Button title="Ajouter un article" onPress={onSubmit} />
-      )}
+      <View style={styles.buttons}>
+        <TouchableOpacity onPress={addPhoto}>
+          <View style={styles.buttonContainer}>
+            <Icon name="add-photo-alternate" color={'white'} />
+          </View>
+        </TouchableOpacity>
+        {isloading ? (
+          <ActivityIndicator />
+        ) : (
+          <TouchableOpacity onPress={onSubmit}>
+            <View style={styles.buttonContainer}>
+              <Icon name="add" color={'white'} />
+            </View>
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -57,10 +80,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.dark,
     justifyContent: 'center',
     width: '100%',
-    paddingHorizontal: 10,
   },
   textInput: {
     borderWidth: 1,
     textAlignVertical: 'top',
+  },
+  buttonContainer: {
+    backgroundColor: 'hsl(240, 100%, 70%)',
+  },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 30,
   },
 });
