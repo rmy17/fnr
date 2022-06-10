@@ -5,6 +5,7 @@ const session = require("express-session");
 const { createServer } = require("http");
 const { crudity } = require("crudity");
 const api = require("./api.js");
+const upload = require("./upload.js");
 
 const app = express();
 const port = 3000;
@@ -30,6 +31,8 @@ app.use(
     pageSize: 100,
   })
 );
+
+app.use("/api/upload", upload);
 app.use("/api", api);
 
 app.use(express.static("./public"));

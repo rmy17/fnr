@@ -8,7 +8,7 @@ export interface LoginForm {
   password: string;
 }
 
-const apiUrl = backendUrl + '/api';
+export const apiUrl = backendUrl + '/api';
 
 class Api {
   async addNewArticle(article: Article) {
@@ -66,6 +66,16 @@ class Api {
   async getArticles(): Promise<Article[]> {
     const response = await authFetch(apiUrl + '/articles');
     return await response.json();
+  }
+
+  async upload(formData: FormData) {
+    return await authFetch(apiUrl + '/upload', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    });
   }
 }
 
