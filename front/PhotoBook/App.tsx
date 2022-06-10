@@ -15,6 +15,7 @@ import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import api from './src/api';
+import DeviceInfoModule from './src/native/DeviceInfoModule';
 import {RootStackParamList} from './src/navigation';
 import {useAppDispatch} from './src/redux/hooks';
 import {connect} from './src/redux/slices/authentication.slice';
@@ -23,9 +24,24 @@ import HomeScreen from './src/screen/HomeScreen';
 import LoginScreen from './src/screen/LoginScreen';
 import SplashScreen from './src/screen/SplashScreen';
 
+export const testx = () => {
+  (async () => {
+    try {
+      const result = await DeviceInfoModule.getUniqueId('hello world');
+      console.log('result', result);
+
+      const resultDeux = await DeviceInfoModule.getUniqueId('zut');
+      console.log('resultDeux', resultDeux);
+    } catch (err) {
+      console.log('err', err);
+    }
+  })();
+};
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
+  testx();
   return (
     <Provider store={store}>
       <ReduxApp></ReduxApp>

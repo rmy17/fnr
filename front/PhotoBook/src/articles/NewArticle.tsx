@@ -36,7 +36,7 @@ const NewArticle = () => {
       } finally {
         setIsLoading(false);
         setText(intitialText);
-        setImages([] as string[]);
+        setImages([]);
       }
     })();
   };
