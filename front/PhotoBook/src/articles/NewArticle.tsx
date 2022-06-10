@@ -3,7 +3,7 @@ import {TextInput, StyleSheet, Text, View, Button} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useAppDispatch} from '../redux/hooks';
-import {addNewArticle} from '../redux/slices/articles.slice';
+import {addNewArticle, fetchAllArticles} from '../redux/slices/articles.slice';
 
 const intitialText = '';
 
@@ -19,6 +19,9 @@ const NewArticle = () => {
         setIsLoading(true);
         console.log('About to add article');
         await dispatch(addNewArticle({content: text, images: images})).unwrap();
+        setIsLoading(false);
+        await dispatch(fetchAllArticles()).unwrap();
+        console.log('fin ...');
       } catch (err) {
         console.log('err', err);
       } finally {
